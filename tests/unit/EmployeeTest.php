@@ -18,4 +18,23 @@ class EmployeeTest extends TestCase
 
         $this->assertSame("Roger", $employee->getName());
     }
+
+    public function testSetAndGetEmployeeId(): void
+    {
+        $employee = new Employee;
+
+        $this->assertNull($employee->getId(), "Expected null before setting an ID");
+
+        $employee->setId(123);
+        $this->assertSame(123, $employee->getId(), "Expected ID to be 123");
+    }
+
+    public function testSetInvalidEmployeeId(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("ID must be a positive integer.");
+
+        $employee = new Employee;
+        $employee->setId(-5); // This should throw an exception
+    }
 }
